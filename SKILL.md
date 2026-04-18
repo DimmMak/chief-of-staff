@@ -1,6 +1,6 @@
 ---
 name: chief-of-staff
-version: 0.1.0
+version: 0.2.0
 role: Chief of Staff
 description: >
   The attention layer for Waypoint Capital. Single inbound interface between the
@@ -9,7 +9,7 @@ description: >
   and reactively (on command). Calibrates to the user via explicit feedback and
   passive signal over time. Auditable by design.
   Commands: .chief | .chief morning | .chief eod | .chief check | .chief status
-            | .chief audit | .chief tune | .chief feedback | .chief review | .chief miss
+            | .chief watchlist | .chief audit | .chief tune | .chief feedback | .chief review | .chief miss
 ---
 
 <!-- CHANGELOG pointer: see CHANGELOG.md. Bump `version:` on every material change. -->
@@ -326,6 +326,31 @@ Confirm? (y/n)
 ```
 
 On confirm: write to preferences.md + log to feedback-log.jsonl + update calibration.json.
+
+### `.chief watchlist` — Combined price + fundamentals + analysis (v0.2+)
+
+**Trigger:** user types `.chief watchlist`.
+
+**Execution:** run the dispatcher script:
+```bash
+python3 ~/.claude/skills/chief-of-staff/scripts/watchlist_view.py
+```
+
+This script:
+1. Reads `waypoint-capital/watchlist.md` for tickers
+2. Calls price-desk + fundamentals-desk
+3. Joins the data by ticker
+4. Renders:
+   - **Header** — timestamp, ticker count
+   - **Full table** — price, post-market, day%, P/E fwd, P/S, rev growth, FCF, net cash, margin, target, upside, recommendation
+   - **Sorted by upside** — ranked list
+   - **Standouts** — top 4 where fundamentals + consensus + upside align (scoring: strong_buy=2, upside>20%=2, P/E<25=1, margin>25%=1, rev growth>15%=1; threshold score >= 5)
+   - **Red flags** — names with negative upside, negative margin, P/E>100, heavy net debt (>$50B), P/S>50, or negative revenue growth
+   - **Next moves** — suggested follow-up commands
+
+Display the full script output to the user verbatim. Do NOT reformat or truncate.
+
+**This is Chief's first DISPATCH command** — she previously only ranked/filtered. Now she also executes the most common recurring query.
 
 ### `.chief remind [time] [message]` — One-off reminder
 
