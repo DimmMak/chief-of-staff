@@ -9,7 +9,7 @@
 ### Shipped
 - `scripts/watchlist_view.py` — standalone renderer, reusable
 - `.chief watchlist` command wired in SKILL.md
-- Reads waypoint-capital/watchlist.md, calls price-desk + fundamentals-desk, joins, analyzes
+- Reads blue-hill-capital/watchlist.md, calls price-desk + fundamentals-desk, joins, analyzes
 
 ### Output sections (all one command)
 1. Header (timestamp + ticker count)
@@ -59,7 +59,7 @@ This is Chief's first command that RUNS a script instead of reading state. Still
 
 **Integrations:**
 - Reads royal-rumble predictions.json / strategy-meetings.json / comparisons.json
-- Reads waypoint-capital trades, CONSTRAINTS, TRACK-RECORD
+- Reads blue-hill-capital trades, CONSTRAINTS, TRACK-RECORD
 - Pairs with Mewtwo (opposite direction — outbound router)
 - Never executes side-effects (suggests only)
 

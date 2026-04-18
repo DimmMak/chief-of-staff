@@ -2,10 +2,10 @@
 """
 chief-of-staff → watchlist view
 
-Combined price + fundamentals + analysis table for the Waypoint Capital watchlist.
+Combined price + fundamentals + analysis table for the Blue Hill Capital watchlist.
 
 Flow:
-  1. Read tickers from waypoint-capital/watchlist.md
+  1. Read tickers from blue-hill-capital/watchlist.md
   2. Call price-desk + fundamentals-desk
   3. Join data by ticker
   4. Render: header → full table → upside-sorted list → standouts → red flags
@@ -22,7 +22,7 @@ from pathlib import Path
 HOME = Path.home()
 PRICE_SCRIPT = HOME / ".claude/skills/price-desk/scripts/price.py"
 FUND_SCRIPT = HOME / ".claude/skills/fundamentals-desk/scripts/fundamentals.py"
-WATCHLIST_MD = HOME / "Desktop/CLAUDE CODE/waypoint-capital/watchlist.md"
+WATCHLIST_MD = HOME / "Desktop/CLAUDE CODE/blue-hill-capital/watchlist.md"
 
 D = "$"  # dollar sign (avoid f-string escape headaches)
 
@@ -107,7 +107,7 @@ def render():
     # --- Header ---
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     print()
-    print("📊 WAYPOINT CAPITAL — WATCHLIST VIEW")
+    print("📊 BLUE HILL CAPITAL — WATCHLIST VIEW")
     print(f"    Pulled: {now} · {len(rows)} names · price-desk + fundamentals-desk")
     print("=" * 120)
 

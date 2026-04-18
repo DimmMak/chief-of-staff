@@ -1,6 +1,6 @@
 # 📋 Chief of Staff
 
-> The attention layer for Waypoint Capital. Every other skill reports through her.
+> The attention layer for Blue Hill Capital. Every other skill reports through her.
 
 ---
 
