@@ -1,0 +1,176 @@
+{
+  "version": "0.1.0",
+  "description": "Vibe-coding drill library. Each drill targets one skill-tree branch. Timeboxed. Falsifiable.",
+  "branches": {
+    "skill_design": "Writing clean SKILL.md files that load context instantly",
+    "prompt_crafting": "Asking Claude for the right thing with the right framing",
+    "tier_listing": "Risk × Reward discipline applied to every decision",
+    "architecture": "When to build, when to wait, what to compose",
+    "memory_hygiene": "Using memory files as compound leverage",
+    "earn_your_features": "Refusing to build until pain is real and repeated",
+    "cite_or_abstain": "Every number tagged or flagged — no plausibility filling",
+    "gap_hunting": "Detecting data integrity issues before they compound"
+  },
+  "drills": [
+    {
+      "id": "sd-01",
+      "branch": "skill_design",
+      "title": "One-sentence description",
+      "prompt": "Take your longest SKILL.md description and rewrite it in ONE SENTENCE. Keep it under 25 words. Must still include: what it does, why it exists, what NOT to use it for.",
+      "timebox_min": 3,
+      "level": 1
+    },
+    {
+      "id": "sd-02",
+      "branch": "skill_design",
+      "title": "The Inviolable Rule",
+      "prompt": "Pick one of your skills. Write its INVIOLABLE RULE (one sentence — the thing that if violated, the skill is broken). This is the architectural invariant.",
+      "timebox_min": 5,
+      "level": 2
+    },
+    {
+      "id": "sd-03",
+      "branch": "skill_design",
+      "title": "Command surface compression",
+      "prompt": "List every command in a skill. Cut to max 6. Explain in one line why each cut item is absorbed or killed.",
+      "timebox_min": 7,
+      "level": 2
+    },
+    {
+      "id": "pc-01",
+      "branch": "prompt_crafting",
+      "title": "Rewrite a vague ask",
+      "prompt": "Find a prompt you wrote to Claude this week that got a mid response. Rewrite it. Name the role Claude should take, the constraints, the output format, and one anti-pattern to avoid.",
+      "timebox_min": 5,
+      "level": 1
+    },
+    {
+      "id": "pc-02",
+      "branch": "prompt_crafting",
+      "title": "Sealed-room test",
+      "prompt": "Write a subagent prompt for a task. Verify: does it leak any user context? Does it tell the subagent what tools it has? Does it have a fallback path? All 3 must be yes.",
+      "timebox_min": 10,
+      "level": 3
+    },
+    {
+      "id": "tl-01",
+      "branch": "tier_listing",
+      "title": "3 ideas, 2 minutes",
+      "prompt": "Write down 3 things you want to build. Tier-list them (Risk × Reward × Effort) in 2 minutes. Ship only the T1. Kill the T3.",
+      "timebox_min": 2,
+      "level": 1
+    },
+    {
+      "id": "tl-02",
+      "branch": "tier_listing",
+      "title": "Flip the gate",
+      "prompt": "Pick a T2 item from any roadmap. Define the EXACT trigger that promotes it to T1. Specific + testable + time-bound. No vibes.",
+      "timebox_min": 5,
+      "level": 2
+    },
+    {
+      "id": "ar-01",
+      "branch": "architecture",
+      "title": "The compose test",
+      "prompt": "Pick any feature you built last week. Could it have been 2 existing skills composed via Mewtwo instead? Answer honestly. Write 2 sentences.",
+      "timebox_min": 5,
+      "level": 2
+    },
+    {
+      "id": "ar-02",
+      "branch": "architecture",
+      "title": "Single point of failure",
+      "prompt": "If price-desk went down right now, what still works in your stack? Write the list. What's the blast radius?",
+      "timebox_min": 5,
+      "level": 2
+    },
+    {
+      "id": "mh-01",
+      "branch": "memory_hygiene",
+      "title": "Principle audit",
+      "prompt": "Open MEMORY.md. Read each principle aloud. For each, rate 1-5 on: did I actually apply this today? If any is < 3, either strengthen it or delete it.",
+      "timebox_min": 5,
+      "level": 1
+    },
+    {
+      "id": "mh-02",
+      "branch": "memory_hygiene",
+      "title": "The 14-year-old test",
+      "prompt": "Take one memory principle. Could a smart 14-year-old understand it from the one-liner in MEMORY.md? If no, rewrite.",
+      "timebox_min": 5,
+      "level": 2
+    },
+    {
+      "id": "ef-01",
+      "branch": "earn_your_features",
+      "title": "The trigger clause",
+      "prompt": "Pick something you WANT to build. Write the exact condition that earns it. If you can't write a specific trigger, you haven't earned it yet — don't build.",
+      "timebox_min": 5,
+      "level": 1
+    },
+    {
+      "id": "ef-02",
+      "branch": "earn_your_features",
+      "title": "Kill list",
+      "prompt": "List 3 features from your roadmap you should KILL (not defer — kill). Explain why each never earns itself.",
+      "timebox_min": 7,
+      "level": 2
+    },
+    {
+      "id": "co-01",
+      "branch": "cite_or_abstain",
+      "title": "Number hunt",
+      "prompt": "Read your most recent memo or trade doc. Find every number. Does each have [SRC:] or [ESTIMATE] or [UNVERIFIED]? If not, add it or delete the number.",
+      "timebox_min": 5,
+      "level": 1
+    },
+    {
+      "id": "co-02",
+      "branch": "cite_or_abstain",
+      "title": "The ESTIMATE stress test",
+      "prompt": "Find something you stated as fact that is actually an estimate. Tag it properly. Notice how often this happens — it's the fabrication surface.",
+      "timebox_min": 5,
+      "level": 2
+    },
+    {
+      "id": "gh-01",
+      "branch": "gap_hunting",
+      "title": "Prod the fresh number",
+      "prompt": "Pick a number in a recent rumble output. Ask me: 'show me where this came from, with timestamp.' If I can't produce it within 10 seconds, we have a gap. Log it.",
+      "timebox_min": 3,
+      "level": 1
+    },
+    {
+      "id": "gh-02",
+      "branch": "gap_hunting",
+      "title": "The stale-data sweep",
+      "prompt": "Run .chief watchlist twice, 5 minutes apart. Any number changes? Any stale field? Log findings. This is how you catch data-layer bugs.",
+      "timebox_min": 10,
+      "level": 2
+    },
+    {
+      "id": "gh-03",
+      "branch": "gap_hunting",
+      "title": "The adversarial rumble",
+      "prompt": "Pick a ticker. Before rumbling, form your OWN hypothesis. Rumble it (with hypothesis registered). If verdict diverges from yours, which of you had stale data?",
+      "timebox_min": 15,
+      "level": 3
+    },
+    {
+      "id": "gh-04",
+      "branch": "gap_hunting",
+      "title": "Cross-verify",
+      "prompt": "Pick one number from any recent rumble. Open Yahoo Finance in browser. Does yfinance match? If not — huge gap, ship fix same-day.",
+      "timebox_min": 5,
+      "level": 1
+    },
+    {
+      "id": "pc-03",
+      "branch": "prompt_crafting",
+      "title": "Metaphor-first test",
+      "prompt": "Take any technical concept you explained this week. Open with a concrete scene (sealed room, drawer, office). Test: could a 14-year-old get it in one read?",
+      "timebox_min": 7,
+      "level": 2
+    }
+  ]
+}

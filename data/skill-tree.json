@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "user": "Danny",
+  "started_at": "2026-04-18",
+  "branches": {
+    "skill_design":        {"xp": 0, "level": 1, "drills_completed": 0},
+    "prompt_crafting":     {"xp": 0, "level": 1, "drills_completed": 0},
+    "tier_listing":        {"xp": 0, "level": 1, "drills_completed": 0},
+    "architecture":        {"xp": 0, "level": 1, "drills_completed": 0},
+    "memory_hygiene":      {"xp": 0, "level": 1, "drills_completed": 0},
+    "earn_your_features":  {"xp": 0, "level": 1, "drills_completed": 0},
+    "cite_or_abstain":     {"xp": 0, "level": 1, "drills_completed": 0},
+    "gap_hunting":         {"xp": 0, "level": 1, "drills_completed": 0}
+  },
+  "xp_per_drill_level": {
+    "1": 10,
+    "2": 20,
+    "3": 40
+  },
+  "level_thresholds": [0, 50, 150, 300, 500, 800]
+}
