@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "posture": "over-report",
+  "weeks_calibrating": 0,
+  "patterns": {},
+  "thresholds": {
+    "rumble_stale_days_p2": 14,
+    "check_in_days_p1": 7,
+    "stop_proximity_pct_p0": 5,
+    "drawdown_circuit_pct": 15
+  },
+  "last_updated": "2026-04-17"
+}
