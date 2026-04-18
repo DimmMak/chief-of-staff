@@ -9,6 +9,10 @@ description: >
   (morning/eod) and reactively (on command). Calibrates to the user via explicit
   feedback and passive signal over time. Auditable by design. Non-fund matters
   (coaching, learning, general tooling) live under .home, not here.
+  NOT for: deep research on a single ticker (use .rumble).
+  NOT for: head-to-head ticker comparisons (use .compare).
+  NOT for: risk × reward tiering (use .tier).
+  NOT for: roadmap / sprint planning (use project-manager).
   Commands: .chief | .chief morning | .chief eod | .chief check | .chief status
             | .chief watchlist | .chief audit | .chief tune | .chief feedback
             | .chief review | .chief miss | .chief remind
