@@ -32,6 +32,16 @@ capabilities:
     - "delete ANY item (architectural rule)"
     - "execute trades"
     - "modify other skills' data"
+unix_contract:
+  data_format: "markdown+jsonl"
+  schema_version: "0.1.0"
+  stdin_support: false
+  stdout_format: "markdown"
+  composable_with:
+    - "price-desk"
+    - "fundamentals-desk"
+    - "royal-rumble"
+    - "journalist"
 ---
 
 <!-- CHANGELOG pointer: see CHANGELOG.md. Bump `version:` on every material change. -->
