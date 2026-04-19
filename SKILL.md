@@ -17,6 +17,21 @@ description: >
   Commands: .chief | .chief morning | .chief eod | .chief check | .chief status
             | .chief watchlist | .chief audit | .chief tune | .chief feedback
             | .chief review | .chief miss | .chief remind
+capabilities:
+  reads:
+    - "royal-rumble/data/*"
+    - "blue-hill-capital/*"
+    - "chief-of-staff/data/*"
+  writes:
+    - "chief-of-staff/data/audit-log.md"
+    - "chief-of-staff/data/inbox/*"
+    - "chief-of-staff/data/feedback-log.jsonl"
+  calls:
+    - "watchlist_view.py (→ price-desk + fundamentals-desk)"
+  cannot:
+    - "delete ANY item (architectural rule)"
+    - "execute trades"
+    - "modify other skills' data"
 ---
 
 <!-- CHANGELOG pointer: see CHANGELOG.md. Bump `version:` on every material change. -->
