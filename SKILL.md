@@ -1,5 +1,6 @@
 ---
 name: chief-of-staff
+domain: fund
 version: 0.3.1
 role: Chief of Staff
 description: >
