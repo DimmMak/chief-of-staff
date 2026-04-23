@@ -1,7 +1,7 @@
 ---
 name: chief-of-staff
 domain: fund
-version: 0.4.0
+version: 0.5.0
 role: Chief of Staff
 description: >
   The attention layer for Blue Hill Capital — FUND-ONLY. Single inbound interface
@@ -17,6 +17,7 @@ description: >
   Commands: .chief | .chief morning | .chief eod | .chief check | .chief status
             | .chief watchlist | .chief audit | .chief tune | .chief feedback
             | .chief review | .chief miss | .chief remind
+            | .chief today | .chief week | .chief month | .chief backlog | .chief reflect
 capabilities:
   reads:
     - "royal-rumble/data/*"
@@ -26,8 +27,12 @@ capabilities:
     - "chief-of-staff/data/audit-log.md"
     - "chief-of-staff/data/inbox/*"
     - "chief-of-staff/data/feedback-log.jsonl"
+    - "chief-of-staff/data/backlog.jsonl       (rhythm v0.5.0+)"
+    - "chief-of-staff/data/rhythm-log.jsonl    (rhythm v0.5.0+)"
+    - "chief-of-staff/data/reflections.jsonl   (rhythm v0.5.0+)"
   calls:
     - "watchlist_view.py (→ price-desk + fundamentals-desk)"
+    - "rhythm.py (→ price-desk + macro-desk + filings-desk + earnings-desk + accuracy-tracker + book)"
   cannot:
     - "delete ANY item (architectural rule)"
     - "execute trades"
@@ -40,9 +45,43 @@ unix_contract:
   composable_with:
     - "price-desk"
     - "fundamentals-desk"
+    - "macro-desk"
+    - "filings-desk"
+    - "earnings-desk"
+    - "accuracy-tracker"
+    - "book"
     - "royal-rumble"
     - "journalist"
 ---
+
+<!--
+RHYTHM SUBCOMMANDS (v0.5.0 — added Phase 4 of filings-desk + .chief rhythm build)
+
+The rhythm.py orchestrator implements 5 cadence commands. Each is invoked via:
+  python3 ~/.claude/skills/chief-of-staff/scripts/rhythm.py <subcommand>
+
+  .chief today
+    Daily checklist. Pulls SPY+VIX (price-desk), portfolio (book), insider activity
+    on watchlist (filings-desk last 90d), and earnings-of-week (earnings-desk).
+    Cross-skill integration proof.
+
+  .chief week  [--force-mode monday|friday]
+    Auto-detects day. Monday = top 3 backlog + earnings of week + insider clusters.
+    Friday = auto-runs `.accuracy review 7d` + reflection prompt.
+
+  .chief month
+    Monthly factor review. Runs `.accuracy cohort` + `.accuracy legends`,
+    plus `git log --since=30 days ago` across all 11 fund repos.
+
+  .chief backlog {add|list|close|groom}
+    Append-only hypothesis queue at data/backlog.jsonl. `groom` flags items
+    untouched >14 days for review/kill.
+
+  .chief reflect [text]
+    No-arg = prompt + show this week's rumbles from predictions.json.
+    With text = append to data/reflections.jsonl.
+-->
+
 
 <!-- CHANGELOG pointer: see CHANGELOG.md. Bump `version:` on every material change. -->
 

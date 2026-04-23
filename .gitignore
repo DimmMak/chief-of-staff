@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+.env
+data/backlog.jsonl
+data/rhythm-log.jsonl
+data/reflections.jsonl
+data/feedback-log.jsonl
+data/inbox/*
+!data/inbox/.gitkeep

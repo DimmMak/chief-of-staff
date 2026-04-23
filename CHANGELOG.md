@@ -1,5 +1,47 @@
 # CHANGELOG — Chief of Staff
 
+## v0.5.0 — 2026-04-23
+
+**Phase 4 of filings-desk + .chief rhythm build.** Adds research-cadence
+infrastructure: 5 new commands that read from the full desk stack.
+
+### Added
+- `scripts/rhythm.py` — single orchestrator with 5 subcommands
+  - `today` — daily briefing: SPY+VIX (price-desk), portfolio (book),
+    insider activity on watchlist (filings-desk), earnings-of-week
+    (earnings-desk). Proves end-to-end cross-skill integration.
+  - `week --force-mode {monday|friday}` — auto-detects day; Monday surfaces
+    top 3 backlog + earnings of week + insider clusters; Friday auto-runs
+    `.accuracy review 7d` and prompts for reflection.
+  - `month` — monthly factor review: `.accuracy cohort` + `.accuracy legends`
+    + `git log --since=30 days ago` across all fund repos.
+  - `backlog {add|list|close|groom}` — append-only hypothesis queue at
+    `data/backlog.jsonl`. Dedupes by ID (last write wins). `groom` flags
+    items untouched >14 days for review/kill.
+  - `reflect [text]` — no-arg prompts + surfaces this week's rumbles from
+    predictions.json. With text, appends to `data/reflections.jsonl`.
+- `data/backlog.jsonl` — append-only hypothesis queue (gitignored)
+- `data/rhythm-log.jsonl` — every command invocation logged (gitignored)
+- `data/reflections.jsonl` — explicit + auto reflections (gitignored)
+- `.gitignore` (new) — excludes user-data files; keeps repo lean
+
+### Changed
+- Frontmatter: capabilities.writes + capabilities.calls + composable_with
+  expanded to declare new dependencies (filings-desk, earnings-desk,
+  accuracy-tracker, book, macro-desk)
+
+### Ship gate (PASSED)
+- All 5 commands return non-error output on a fresh install
+- `.chief today` reads from filings-desk + earnings-desk + price-desk:
+  - SPY $711.21 (+0.60%), VIX 18.92 (-2.92%)
+  - Watchlist insider activity: NVDA $-208M / AMD $-64M / PLTR $-435M
+  - Earnings this week: TSLA today, MSFT/META/GOOG in 7d
+- backlog cycle verified: add → list → close (dedup-by-ID fix) → groom
+  (seeded 20-day-old item correctly flagged as stale)
+- `.chief month` actually pulls cohort + legends from accuracy-tracker
+
+---
+
 ## v0.4.0 — 2026-04-18
 
 **World-Class Overhaul shipped.** Part of the fleet-wide upgrade to tree+plugin+unix architecture.
