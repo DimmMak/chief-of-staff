@@ -63,6 +63,8 @@ FILINGS_SCRIPT = HOME / ".claude/skills/filings-desk/scripts/filings.py"
 EARNINGS_SCRIPT = HOME / ".claude/skills/earnings-desk/scripts/earnings.py"
 ACCURACY_SCRIPT = HOME / ".claude/skills/accuracy-tracker/scripts/accuracy.py"
 BOOK_SCRIPT = HOME / ".claude/skills/book/scripts/book.py"
+DRIFT_GUARD_SCRIPT = HOME / ".claude/skills/drift-guard/scripts/heartbeat.py"
+DRIFT_GUARD_LOG = HOME / "Desktop/CLAUDE CODE/drift-guard/data/heartbeat-log.jsonl"
 
 WATCHLIST_MD = HOME / "Desktop/CLAUDE CODE/blue-hill-capital/watchlist.md"
 PREDICTIONS_JSON = HOME / "Desktop/CLAUDE CODE/royal-rumble/data/predictions.json"
@@ -223,10 +225,37 @@ def cmd_today(args) -> int:
     if flagged == 0:
         print("  (none in next 7d for watchlist sample)")
 
+    # --- Drift-guard heartbeat (latest fleet-health status) ---
+    print("\n🩺 FLEET HEALTH (drift-guard latest)")
+    print("-" * 72)
+    drift_status = "never run"
+    drift_alarms = {"red": 0, "orange": 0, "yellow": 0}
+    if DRIFT_GUARD_LOG.exists():
+        try:
+            lines = DRIFT_GUARD_LOG.read_text().strip().split("\n")
+            if lines and lines[-1]:
+                latest = json.loads(lines[-1])
+                sev = latest.get("severity", {}) or {}
+                drift_alarms = {"red": sev.get("red", 0), "orange": sev.get("orange", 0), "yellow": sev.get("yellow", 0)}
+                clean = latest.get("clean", False)
+                ran_at = (latest.get("run_at") or "")[:16]
+                flag = "🟩 CLEAN" if clean else ("🟥 RED" if drift_alarms["red"] else ("🟧 ORANGE" if drift_alarms["orange"] else "🟨 YELLOW"))
+                drift_status = f"{flag}  ·  last run {ran_at}  ·  red={drift_alarms['red']} orange={drift_alarms['orange']} yellow={drift_alarms['yellow']}"
+        except Exception:
+            drift_status = "log unreadable — try `.drift-guard` manually"
+    print(f"  {drift_status}")
+    if drift_alarms["red"] > 0:
+        print(f"  🚨 RED alarms present — run `.drift-guard` for details BEFORE trusting downstream analysis")
+
     print("\n" + "=" * 72)
     print("Next moves: `.chief backlog list`  ·  `.rumble TICKER`  ·  `.chief week`")
 
-    log_event("today", {"watchlist_size": len(watchlist), "earnings_flagged": flagged})
+    log_event("today", {
+        "watchlist_size": len(watchlist),
+        "earnings_flagged": flagged,
+        "drift_red": drift_alarms["red"],
+        "drift_orange": drift_alarms["orange"],
+    })
     return 0
 
 
